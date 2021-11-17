@@ -46,3 +46,5 @@ streamlit run app.py
 - Make the desired edits in the textbox that pops up
 - Save the edits by pressing `Submit`
 - Unselect the `Edit` checkbox to see the edits and hide the editing widgets
+
+![Dataset submission sidebar](media/dataset_submission.png)
