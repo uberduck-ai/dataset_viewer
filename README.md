@@ -2,7 +2,7 @@
 
 ## Visualize, find errors, and edit your TTS datasets
 
-![TTS Dataset Visualization](media/dataset_viewer_demo.png)
+![TTS Dataset Demo](media/dataset_viewer_demo.gif)
 
 Easily find and edit repeated words and words not in CMU dictionary.
 
@@ -46,5 +46,3 @@ streamlit run app.py
 - Make the desired edits in the textbox that pops up
 - Save the edits by pressing `Submit`
 - Unselect the `Edit` checkbox to see the edits and hide the editing widgets
-
-![Dataset submission sidebar](media/dataset_submission.png)
