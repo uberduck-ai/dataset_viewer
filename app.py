@@ -19,6 +19,7 @@ with st.sidebar.form(key="data_form"):
         "/path/to/dataset",
         help="Path to location of filelist and audio files",
     )
+    dataset_path = os.path.expanduser(dataset_path)
     filelist_path = st.text_input(
         "File list",
         "list-copy.txt",
