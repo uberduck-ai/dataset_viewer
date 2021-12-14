@@ -139,11 +139,12 @@ def run():
             audio_url = client.query(f"{{ {arpabet} }}")
             st.audio(audio_url)
 
-    df = pd.read_csv(
+    original_df = pd.read_csv(
         os.path.join(dataset_path, filelist_path), delimiter=delimiter, header=None
     )
+    df = original_df
     if sort_order == "unknown_words":
-        df = df.iloc[df[1].map(lambda x: -len(g2p.check_lookup(x).get("RNN", []))).argsort(), :]
+        df = original_df.iloc[df[1].map(lambda x: -len(g2p.check_lookup(x).get("RNN", []))).argsort(), :]
 
     for i, row in df[index_start:index_end].iterrows():
         row_n = st.container()
@@ -190,7 +191,7 @@ def run():
                     )
                     if st.button("Submit", key=i):
                         row[1] = edited_text
-                        df.to_csv(
+                        original_df.to_csv(
                             os.path.join(dataset_path, filelist_path),
                             header=False,
                             sep="|",
