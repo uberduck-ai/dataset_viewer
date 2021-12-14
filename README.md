@@ -17,7 +17,7 @@ pip install streamlit st-annotated-text pandas
 - Install forked g2p repo:
 
 ```bash
-pip install g2p_en@git+https://github.com/uberduck-ai/g2p@will-add-lookup-results
+pip install g2p_en@git+https://github.com/uberduck-ai/g2p
 ```
 
 - Clone this repo:
