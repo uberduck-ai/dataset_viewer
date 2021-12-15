@@ -108,12 +108,12 @@ def run():
         # new_filelist = st.text_input("Edited file list location to save", "copy-edited.txt")
         delimiter = st.text_input("Delimiter", "|", help="Delimiter in the filelist")
         st.write("Indices below improve rendering speed for large datasets")
-        index_start = st.number_input(
+        index_start = int(st.number_input(
             label="Start index", help="Index of first row to render", step=0
-        )
-        index_end = st.number_input(
+        ))
+        index_end = int(st.number_input(
             label="End index", help="Index of last row to render", step=1, value=15
-        )
+        ))
         sort_order = st.selectbox("Sort order", ["index", "unknown_words"])
 
         st.title("Add to Arpabet dictionary")
@@ -142,11 +142,12 @@ def run():
     original_df = pd.read_csv(
         os.path.join(dataset_path, filelist_path), delimiter=delimiter, header=None
     )
-    df = original_df
     if sort_order == "unknown_words":
-        df = original_df.iloc[df[1].map(lambda x: -len(g2p.check_lookup(x).get("RNN", []))).argsort(), :]
+        sort_indices = original_df[1].map(lambda x: -len(g2p.check_lookup(x).get("RNN", []))).argsort()
+    else:
+        sort_indices = range(original_df.shape[0])
 
-    for i, row in df[index_start:index_end].iterrows():
+    for i, row in original_df.iloc[sort_indices[index_start:index_end], :].iterrows():
         row_n = st.container()
         with row_n:
             # Set up streamlit column width
@@ -190,7 +191,7 @@ def run():
                         transcription,
                     )
                     if st.button("Submit", key=i):
-                        row[1] = edited_text
+                        original_df.iloc[i, 1] = edited_text
                         original_df.to_csv(
                             os.path.join(dataset_path, filelist_path),
                             header=False,
